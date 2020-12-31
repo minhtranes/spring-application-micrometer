@@ -1,0 +1,21 @@
+server.port: 8080
+logging.level.org.springframework.integration.support.MessageBuilder: WARN
+logging.level.org.springframework.boot: INFO
+security.ignored: /**
+management:
+   endpoints.web.exposure.include: '*'
+   metrics:
+#      tags:
+#         host: "${HOSTNAME}"
+      export:
+         jmx.enabled: true
+         prometheus:
+            enabled: true
+            pushgateway:
+               enabled: true
+               base-url: http://localhost:9091
+               push-rate: 5s
+         filter:
+            hystrix.latency:
+               percentiles: 0.50,0.95,0.999
+   security.enabled: false
